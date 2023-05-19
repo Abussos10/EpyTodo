@@ -2,7 +2,8 @@ import "./style.css";
 import Header from './components/Header.js';
 import Content from "./components/Content.js";
 
-export default function App() {
+export default function App()
+{
     //state (état, données)
 
     //comportements

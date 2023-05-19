@@ -2,7 +2,13 @@ import React from "react";
 import "../styles/Header.css"; // Importez le fichier CSS pour le style du header
 import profile from './profile.png';
 
-function Header() {
+function Header()
+{
+    //state (état, données)
+
+    //comportements
+
+    // affichage (render)
     return (
         <header className="header">
             <h1>狼 okami</h1>

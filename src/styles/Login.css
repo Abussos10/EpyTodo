@@ -1,0 +1,114 @@
+main {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #5b5b71;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 750px;
+    height: 600px;
+    background-color: #f4f4f4;
+}
+
+.login {
+    display: block;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    font-family: "Noto Sans CJK JP", serif;
+    font-weight: normal;
+    color: #5b5b71;
+}
+
+.description {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 40px;
+    font-family: "Noto Sans CJK JP", serif;
+    font-size: 19px;
+    color: #7a7a7a;
+}
+
+.email {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.email input {
+    color: black;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.password {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.password input{
+    color: black;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+h2 {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 40px;
+    color: #5b5b71;
+    font-family: "Noto Sans CJK JP", serif;
+}
+
+.container-button-login {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.container-button-login button {
+    border-color: transparent;
+    background-color: #5b5b71;
+    border-radius: 5px;
+    font-size: 15px;
+    color: white;
+    width: 500px;
+    height: 40px;
+}
+
+.container-button-login button:hover {
+    cursor: pointer;
+    border-color: transparent;
+    background-color: #bf9a90;
+}
+
+.container-button-register {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.container-button-register button {
+    border-color: transparent;
+    background-color: #bf9a90;
+    border-radius: 5px;
+    font-size: 15px;
+    color: white;
+    width: 120px;
+    height: 40px;
+}
+
+.container-button-register button:hover {
+    cursor: pointer;
+    border-color: #bf9a90;
+    background-color: #5b5b71;
+}
