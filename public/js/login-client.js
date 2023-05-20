@@ -11,7 +11,7 @@ form.addEventListener("submit", async (event) => {
         email: email.value,
         password: password.value
     }
-    fetch("/login", { // Make sure to include the leading slash (/) for the route
+    fetch("/login", {
         method: "POST",
         body: JSON.stringify(login),
         headers: {
@@ -24,6 +24,7 @@ form.addEventListener("submit", async (event) => {
                 error.style.display = "block";
                 error.innerText = data.error;
             } else {
+                localStorage.setItem("token", data.token);
                 error.style.display = "none";
                 success.style.display = "block";
                 success.innerText = data.success;

@@ -3,9 +3,10 @@ const router = express.Router();
 const registerController = require("../controllers/register");
 const loginController = require("../controllers/login");
 const getUserController = require("../controllers/user");
+const checkLoggedIn = require("../controllers/loggedIn");
 
 router.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", { user: res.locals.user });
 });
 
 router.get("/register", (req, res) => {
@@ -16,8 +17,9 @@ router.get("/login", (req, res) => {
   res.sendFile("login.html", { root: "./public/" });
 });
 
-//router.get("/user")...
-
+router.get("/user", (req, res) => {
+  res.sendFile("user.html", { root: "./public/" });
+});
 
 // POST route for registration
 router.post("/register", registerController);
