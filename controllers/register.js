@@ -3,7 +3,7 @@
 
 const register = async (req, res) => {
     const { email, password: Npassword, name, firstname } = req.body;
-  if (!email || !Npassword || !name || !firstname) {
+  if (!email || !name || !firstname || !Npassword) {
     console.log("Email =" + email);
     console.log("password =" + Npassword);
     console.log("name = " + name);
@@ -13,7 +13,7 @@ const register = async (req, res) => {
     db.query('SELECT email FROM users WHERE email = ?', [email], async (err, result) => {
       if (err) throw err;
       if (result[0]) {
-        return res.json({ status: "error", error: "Email has already been registered" });
+        return res.json({ status: "msg", error: "Account already exists" });
       } else {
         const hashedPassword = await bcrypt.hash(Npassword, 8);
         const userData = {
@@ -24,7 +24,7 @@ const register = async (req, res) => {
         };
         db.query('INSERT INTO users SET ?', userData, (error, results) => {
           if (error) throw error;
-          return res.json({ status: "success", message: "User has been registered" });
+          return res.json({ status: "token", message: "Token of the newly registered user" });
         });
       }
     });
