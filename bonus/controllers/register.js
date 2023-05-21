@@ -31,9 +31,7 @@ const register = async (req, res) => {
                 };
                 db.query('INSERT INTO users SET ?', userData, (error, results) => {
                     if (error) throw error;
-                    return res.json({
-                        token: "Token of the newly registered user"
-                    });
+                    return res.json({ status: "success", message: "User has been registered" });
                 });
             }
         });

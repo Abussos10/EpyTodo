@@ -10,7 +10,8 @@ const login = async (req, res) => {
     const tokenCheck = req.cookies.access_token;
     if (tokenCheck)
         return res.json({
-            msg: "Already logged in"
+            status: "error",
+            error: "Already logged in"
         });
     if (!email || !password)
         return res.json({
@@ -21,9 +22,7 @@ const login = async (req, res) => {
         db.query('SELECT * FROM users WHERE email = ?', [email], async (err, result) => {
             if (err) throw err;
             if (!result[0] || !(await bcrypt.compare(password, result[0].password))) {
-                return res.json({
-                    msg: "Invalid Credentials",
-                });
+                return res.json({ status: "error", error: "Invalid credentials" });
             } else {
                 const token = jwt.sign({
                     id: result[0].id
@@ -36,9 +35,7 @@ const login = async (req, res) => {
                     samesite: 'secure',
                 };
                 res.cookie("access_token", token, cookieOptions);
-                return res.json({
-                    token: "Token of the newly logged in user"
-                });
+                return res.json({ status: "success", success: "User has been logged in" });
             }
         });
     }
