@@ -5,46 +5,34 @@ const registerController = require("../controllers/register");
 const loginController = require("../controllers/login");
 const getUserData = require("../controllers/user");
 const checkLoggedIn = require("../middlewares/checkLoggedIn");
-const logout_handling = require('../middlewares/logout');
 const jwt = require("jsonwebtoken");
 
   // GET {INDEX}    --- ROUTE
 router.get("/", (req, res) => {
-    res.render("index", {
-        user: res.locals.user
-    });
-});
-
-  // GET /register    --- PAGE + html
-router.get("/register", (req, res) => {
-    res.sendFile("register.html", {
-        root: "./public/"
-    });
-});
-
-  // GET /login    --- PAGE + html
-router.get("/login", (req, res) => {
-    res.sendFile("login.html", {
-        root: "./public/"
-    });
+    res.send("This is the only backend version of my project");
 });
 
   // GET /user    --- PAGE + html
-router.get('/user', checkLoggedIn, (req, res) => {
-    const userId = req.params.id;
-    if (!userId) {
-        return res.redirect("/login");
-    }
+  router.get('/user', checkLoggedIn, (req, res) => {
+    const userId = req.userId;
     getUserData(userId, (err, user) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('An error occurred while fetching user data.');
+            return res.status(500).send("Internal server error");
         }
-        res.render('user', {
-            user
-        });
+        const userData = {
+            id: user.id,
+            email: user.email,
+            password: user.password,
+            created_at: user.created_at,
+            firstname: user.firstname,
+            name: user.name
+        };
+        res.json(userData);
     });
 });
+
+module.exports = router;
 
   // GET /todos/:idOrEmail    --- ROUTE
 router.get("/users/:idOrEmail", checkLoggedIn, (req, res) => {
@@ -172,8 +160,5 @@ router.post("/register", registerController);
 
 // POST route for login
 router.post("/login", loginController);
-
-// POST route for logout button
-router.post('/logout', logout_handling);
 
 module.exports = router;
