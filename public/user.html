@@ -1,40 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Info</title>
-</head>
-<body>
-  <h1>User Information</h1>
-  <div id="user-info"></div>
-
-  <script>
-    // Fetch user information from the server
-    fetch("/user", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "success") {
-          // Display user information
-          const userInfoDiv = document.getElementById("user-info");
-          userInfoDiv.innerHTML = `
-            <p><strong>ID:</strong> ${data.user.id}</p>
-            <p><strong>Email:</strong> ${data.user.email}</p>
-            <p><strong>Password:</strong> ${data.user.password}</p>
-            <p><strong>Created At:</strong> ${data.user.created_at}</p>
-            <p><strong>First Name:</strong> ${data.user.firstname}</p>
-            <p><strong>Last Name:</strong> ${data.user.lastname}</p>
-          `;
-        }
-      })
-      .catch((error) => {
-        console.log("Error fetching user information:", error);
-      });
-  </script>
-</body>
+<html>
+  <head>
+    <title>User Information</title>
+  </head>
+  <body>
+    <h1>User Information</h1>
+    <p> Email: <%= user.email %> <br> Hashed Password: <%= user.password %> <br> Name: <%= user.name %> <br> First Name: <%= user.firstname %> <br> Created At: <%= user.created_at %> </p>
+  </body>
 </html>
