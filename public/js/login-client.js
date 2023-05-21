@@ -12,12 +12,12 @@ form.addEventListener("submit", async (event) => {
         password: password.value
     }
     fetch("/login", {
-        method: "POST",
-        body: JSON.stringify(login),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(res => res.json())
+            method: "POST",
+            body: JSON.stringify(login),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json())
         .then(data => {
             if (data.status == "error") {
                 success.style.display = "none";
