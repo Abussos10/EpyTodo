@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 19, 2023 at 11:51 PM
+-- Generation Time: May 21, 2023 at 03:16 AM
 -- Server version: 8.0.33
 -- PHP Version: 8.1.19
 
@@ -24,6 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `todo_table`
+--
+
+CREATE TABLE `todo_table` (
+  `id` int NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `due_time` datetime NOT NULL,
+  `status` enum('not started','todo','in progress','done') NOT NULL DEFAULT 'not started',
+  `user_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -37,8 +53,26 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password`, `name`, `firstname`, `created_at`) VALUES
+(8, 'updated_email@test.eu', 'new_pass', 'test', 'test', '2023-05-20 06:33:11'),
+(9, 'test@test.fr', '$2a$08$Dqf8tI8uhVNoJj5mM6PAd.gwB9sakOCvskRhgQSY4b2RNNQGIkYgq', '[testName]', '[firstName]', '2023-05-20 09:07:16'),
+(10, 'guillaume.michel@outlook.fr', '$2a$08$fn35zBr3ScJIG1AqIxpGHO7SSrL8Uzie/YgZDVqe.ql1/qb27IvLe', 'test1', 'test3', '2023-05-20 16:46:04'),
+(11, 'lucien.ballon@outlook.fr', '$2a$08$qhH7cV92ZS3Cqs3Uj0IsJ.mjJkyhl5HIxd3KiK6HErlqX2e4IbxS2', 'test1', 'test3', '2023-05-20 16:51:18'),
+(12, 'lucien.balland@outlook.fr', '$2a$08$C28ATQcyqcKgefvbDD68uOeVJdbGITkl76tAehnCEPjQVr.vfM/G2', 'lucien', 'balland', '2023-05-21 03:02:08');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `todo_table`
+--
+ALTER TABLE `todo_table`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_id` (`user_id`);
 
 --
 -- Indexes for table `users`
@@ -52,15 +86,27 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `todo_table`
+--
+ALTER TABLE `todo_table`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `todo_table`
+--
+ALTER TABLE `todo_table`
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
-
-
--- Inserting a user into the `users` table
-INSERT INTO `users` (`email`, `password`, `name`, `firstname`) VALUES ('test@example.com', 'password123', 'John', 'Doe');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
