@@ -32,8 +32,6 @@ router.get("/", (req, res) => {
     });
 });
 
-module.exports = router;
-
   // GET /todos/:idOrEmail    --- ROUTE
 router.get("/users/:idOrEmail", checkLoggedIn, (req, res) => {
     const idOrEmail = req.params.idOrEmail;
