@@ -44,7 +44,7 @@ router.get("/", (req, res) => {
       }
       if (result.length === 0) {
         res.status(404).json({
-          error: 'User not found.'
+          msg: "Not found"
         });
         return;
       }
@@ -120,7 +120,7 @@ router.delete("/todos/:id", checkLoggedIn, (req, res) => {
   });
   
   // PUT /users/:id    --- ROUTE
-router.put('/users/:id', (req, res) => {
+  router.put('/users/:id', (req, res) => {
     const userId = req.params.id;
     const { email, password, firstname, name } = req.body;
     db.query(
@@ -129,16 +129,17 @@ router.put('/users/:id', (req, res) => {
       (error, result) => {
         if (error) throw error;
         if (result.affectedRows === 0) {
-          return res.status(404).json({ msg: `User with ID ${userId} not found` });
+          return res.status(404).json({ msg: "Not Found" });
         }
-        db.query('SELECT * FROM users WHERE id = ?', [userId], (err, rows) => {
+        db.query('SELECT id, email, password, created_at, firstname, name FROM users WHERE id = ?', [userId], (err, rows) => {
           if (err) throw err;
           const updatedUser = rows[0];
           return res.json(updatedUser);
         });
       }
     );
-  });  
+  });
+  
 
   // PUT /todos/:id    --- ROUTE
 router.put('/todos/:id', checkLoggedIn, (req, res) => {
