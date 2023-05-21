@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 });
 
   // GET /user    --- PAGE + html
-  router.get('/user', checkLoggedIn, (req, res) => {
+  router.get("/user", checkLoggedIn, (req, res) => {
     const userId = req.userId;
     getUserData(userId, (err, user) => {
         if (err) {
@@ -35,7 +35,7 @@ router.get("/", (req, res) => {
   // GET /todos/:idOrEmail    --- ROUTE
   router.get("/users/:idOrEmail", checkLoggedIn, (req, res) => {
     const idOrEmail = req.params.idOrEmail;
-    const sql = 'SELECT * FROM users WHERE id = ? OR email = ?';
+    const sql = "SELECT * FROM users WHERE id = ? OR email = ?";
     const values = [idOrEmail, idOrEmail];
     db.query(sql, values, (err, result) => {
       if (err) {
@@ -64,16 +64,16 @@ router.get("/", (req, res) => {
   // GET /todos/:id    --- ROUTE
 router.get("/todos/:id", checkLoggedIn, (req, res) => {
     const todoId = req.params.id;
-    const sql = 'SELECT id, title, description, created_at, due_time, user_id, status FROM todo_table WHERE id = ?';
+    const sql = "SELECT id, title, description, created_at, due_time, user_id, status FROM todo_table WHERE id = ?";
     const values = [todoId];
     db.query(sql, values, (err, result) => {
       if (err) {
         console.error(err);
-        res.status(500).json({ error: 'An error occurred while fetching the todo.' });
+        res.status(500).json({ error: "An error occurred while fetching the todo." });
         return;
       }
       if (result.length === 0) {
-        res.status(404).json({ error: 'Todo not found.' });
+        res.status(404).json({ error: "Todo not found." });
         return;
       }
       const todo = result[0];
@@ -82,18 +82,15 @@ router.get("/todos/:id", checkLoggedIn, (req, res) => {
   });
 
     // DELETE /users/:id    --- ROUTE
-  router.delete('/users/:id', checkLoggedIn, (req, res) => {
+  router.delete("/users/:id", checkLoggedIn, (req, res) => {
     const userId = req.params.id;
-
-    db.query('DELETE FROM users WHERE id = ?', [userId], (error, result) => {
+    db.query("DELETE FROM users WHERE id = ?", [userId], (error, result) => {
         if (error) throw error;
-
         if (result.affectedRows === 0) {
             return res.status(404).json({
                 msg: "User with ID " + userId + "not found"
             });
         }
-
         return res.json({
             msg: "Successfully deleted record number: " + userId
         });
@@ -103,35 +100,35 @@ router.get("/todos/:id", checkLoggedIn, (req, res) => {
   // DELETE /todos/:id    --- ROUTE
 router.delete("/todos/:id", checkLoggedIn, (req, res) => {
     const todoId = req.params.id;
-    const sql = 'DELETE FROM todo_table WHERE id = ?';
+    const sql = "DELETE FROM todo_table WHERE id = ?";
     const values = [todoId];
     db.query(sql, values, (err, result) => {
       if (err) {
         console.error(err);
-        res.status(500).json({ error: 'An error occurred while deleting the todo.' });
+        res.status(500).json({ error: "An error occurred while deleting the todo." });
         return;
       }
       if (result.affectedRows === 0) {
-        res.status(404).json({ error: 'Todo not found.' });
+        res.status(404).json({ error: "Todo not found." });
         return;
       }
-      res.json({ msg: `Successfully deleted record number: ${todoId}` });
+      res.json({ msg: "Successfully deleted record number: " + todoId });
     });
   });
   
   // PUT /users/:id    --- ROUTE
-  router.put('/users/:id', (req, res) => {
+  router.put("/users/:id", (req, res) => {
     const userId = req.params.id;
     const { email, password, firstname, name } = req.body;
     db.query(
-      'UPDATE users SET email = ?, password = ?, firstname = ?, name = ? WHERE id = ?',
+      "UPDATE users SET email = ?, password = ?, firstname = ?, name = ? WHERE id = ?",
       [email, password, firstname, name, userId],
       (error, result) => {
         if (error) throw error;
         if (result.affectedRows === 0) {
           return res.status(404).json({ msg: "Not Found" });
         }
-        db.query('SELECT id, email, password, created_at, firstname, name FROM users WHERE id = ?', [userId], (err, rows) => {
+        db.query("SELECT id, email, password, created_at, firstname, name FROM users WHERE id = ?", [userId], (err, rows) => {
           if (err) throw err;
           const updatedUser = rows[0];
           return res.json(updatedUser);
@@ -142,22 +139,56 @@ router.delete("/todos/:id", checkLoggedIn, (req, res) => {
   
 
   // PUT /todos/:id    --- ROUTE
-router.put('/todos/:id', checkLoggedIn, (req, res) => {
-    const { title, description, due_time, status } = req.body;
-    const user_id = req.params.id;
+  router.put("/todos/:id", checkLoggedIn, (req, res) => {
+    const todoId = req.params.id;
+    const { title, description, due_time, user_id, status } = req.body;
     db.query(
-      'INSERT INTO todo_table (title, description, due_time, user_id, status) VALUES (?, ?, ?, ?, ?)',
-      [title, description, due_time, user_id, status],
+      "UPDATE todo_table SET title = ?, description = ?, due_time = ?, user_id = ?, status = ? WHERE id = ?",
+      [title, description, due_time, user_id, status, todoId],
       (err, results) => {
         if (err) {
           console.error(err);
-          res.status(500).json({ error: 'An error occurred while creating the todo.' });
+          res.status(404).json({ error: "Not Found" });
           return;
         }
-        res.json({ message: 'Todo created successfully.' });
+        res.json({
+          title,
+          description,
+          due_time,
+          user_id,
+          status
+        });
       }
     );
-  });  
+  });
+  
+    // POST /todos    --- ROUTE
+  router.post('/todos', checkLoggedIn, (req, res) => {
+    const { title, description, due_time, user_id, status } = req.body;
+    const sql = 'INSERT INTO todo_table (title, description, created_at, due_time, user_id, status) VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?)';
+    const values = [title, description, due_time, user_id, status];
+  
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: 'An error occurred while creating the todo.' });
+        return;
+      }
+  
+      const createdTodo = {
+        id: result.insertId,
+        title,
+        description,
+        created_at: new Date().toISOString().replace("T", " ").slice(0, 19),
+        due_time,
+        user_id,
+        status
+      };
+  
+      res.json(createdTodo);
+    });
+  });
+
 
 // POST route for registration
 router.post("/register", registerController);
