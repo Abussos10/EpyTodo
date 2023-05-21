@@ -33,28 +33,33 @@ router.get("/", (req, res) => {
 });
 
   // GET /todos/:idOrEmail    --- ROUTE
-router.get("/users/:idOrEmail", checkLoggedIn, (req, res) => {
+  router.get("/users/:idOrEmail", checkLoggedIn, (req, res) => {
     const idOrEmail = req.params.idOrEmail;
     const sql = 'SELECT * FROM users WHERE id = ? OR email = ?';
     const values = [idOrEmail, idOrEmail];
     db.query(sql, values, (err, result) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('An error occurred while fetching user data.');
-            return;
-        }
-        if (result.length === 0) {
-            res.status(404).json({
-                error: 'User not found.'
-            });
-            return;
-        }
-        const user = result[0];
-        res.render('user.ejs', {
-            user
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Internal server error");
+      }
+      if (result.length === 0) {
+        res.status(404).json({
+          error: 'User not found.'
         });
+        return;
+      }
+      const user = result[0];
+      const responseBody = {
+        id: user.id,
+        email: user.email,
+        password: user.password,
+        created_at: user.created_at,
+        firstname: user.firstname,
+        name: user.name
+      };
+      res.json(responseBody);
     });
-});
+  });
 
   // GET /todos/:id    --- ROUTE
 router.get("/todos/:id", checkLoggedIn, (req, res) => {
