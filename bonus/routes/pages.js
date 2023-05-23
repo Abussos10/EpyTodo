@@ -7,6 +7,7 @@ const getUserData = require("../controllers/user");
 const checkLoggedIn = require("../middlewares/checkLoggedIn");
 const logout_handling = require('../middlewares/logout');
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
   // GET {INDEX}    --- ROUTE
 router.get("/", (req, res) => {
@@ -131,7 +132,8 @@ router.delete("/todos/:id", checkLoggedIn, (req, res) => {
   // PUT /users/:id    --- ROUTE
 router.put('/users/:id', (req, res) => {
     const userId = req.params.id;
-    const { email, password, firstname, name } = req.body;
+    let { email, password, firstname, name } = req.body;
+    password = bcrypt.hashSync(password, 8);
     db.query(
       'UPDATE users SET email = ?, password = ?, firstname = ?, name = ? WHERE id = ?',
       [email, password, firstname, name, userId],
