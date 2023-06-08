@@ -1,10 +1,9 @@
 
 # EpyTodo
 
-EpyTodo is the projet that introduced me in Web Development during my first year at Epitech.  
+EpyTodo is the projet that introduced me to Web Development during my first year at Epitech.  
 The goal was to create a functional Todo List application using Node.js and Express.  
-The project focuses on the backend development, providing users with the ability to manage their tasks easily.  
-In addition to the backend, any frontend was considered as a bonus. 
+The project focuses on the backend development, providing users with the ability to manage their tasks easily.
 ## Features
 
 EpyTodo offers the following features :  
@@ -48,7 +47,68 @@ To run the EpyTodo application locally, follow these steps:
     npm install
 ```  
 &nbsp;&nbsp;&nbsp;**4.**&nbsp;&nbsp;&nbsp; Set up the database :  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <sub> - Create a MySQL database and note down the database name, username, and password.</sub>   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <sub> - Update the database configuration variables with your own values. (see .env)</sub>  
+&nbsp;&nbsp;&nbsp;**5.**&nbsp;&nbsp;&nbsp; Start the application :
+```bash
+    npm start
+```  
+&nbsp;&nbsp;&nbsp;**6.**&nbsp;&nbsp;&nbsp; Access the application in your browser at http://localhost:5000 :
+
+## mySQL Tables
+
+Here are the descriptions of the fields for each table in the MySQL database:
+
+### User Table
+
+| Field       | Description                                     |
+| ----------- | ----------------------------------------------- |
+| id          | Mandatory, auto-increments                      |
+| email       | Mandatory, unique                               |
+| password    | Mandatory                                      |
+| name        | Mandatory                                      |
+| firstname   | Mandatory                                      |
+| created_at  | Set to the current datetime by default          |
+
+### Todo Table
+
+| Field       | Description                                     |
+| ----------- | ----------------------------------------------- |
+| id          | Mandatory, auto-increments                      |
+| title       | Mandatory                                      |
+| description | Mandatory                                      |
+| created_at  | Set to the current datetime by default          |
+| due_time    | Mandatory, datetime                            |
+| status      | Not started by default, can be: todo, in progress, done |
+| user_id     | Mandatory, unsigned, references the id of the user assigned to the task |
+
+## API Routes
+
+Here is a list of all the routes of this project
+| Route               | Method | Protected | Description                                                  |
+| ------------------- | ------ | --------- | ------------------------------------------------------------ |
+| /register           | POST   | No        | Register a new user                                          |
+| /login              | POST   | No        | Authenticate and log in a user                               |
+| /user               | GET    | Yes       | View the information of the currently logged-in user         |
+| /user/todos         | GET    | Yes       | View all tasks of the currently logged-in user               |
+| /users/:id or :email| GET    | Yes       | View the information of a specific user by ID or email       |
+| /users/:id          | PUT    | Yes       | Update the information of a specific user by ID              |
+| /users/:id          | DELETE | Yes       | Delete a specific user by ID                                  |
+| /todos              | GET    | Yes       | View all todos                                               |
+| /todos/:id          | GET    | Yes       | View a specific todo by ID                                    |
+| /todos              | POST   | Yes       | Create a new todo                                            |
+| /todos/:id          | PUT    | Yes       | Update a specific todo by ID                                  |
+| /todos/:id          | DELETE | Yes       | Delete a specific todo by ID                                  |
+
+The protected routes are only accessible by a user logged in using **jsonwebtoken**
+## Conclusion
+
+In conclusion, the EpyTodo project has provided a valuable introduction to web development, specifically focusing on the backend aspect. Building a Todo List application has allowed us to understand the fundamentals of creating RESTful APIs, handling database operations, and implementing user authentication using JSON Web Tokens (JWT).
+
+I highly recommend using Postman, a popular API development tool, to test the provided routes and interact with the backend of the application. Since this project primarily focuses on the backend, using Postman will enable you to easily send requests and observe the responses without the need for a frontend interface.
+
+Official documentation : https://www.postman.com/downloads/
+
+Working on EpyTodo has been an engaging experience, sparking further curiosity and encouraging a deeper exploration of web develop  ment concepts. It has provided a solid foundation for understanding the interaction between the frontend and backend components of a web application.
