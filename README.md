@@ -10,4 +10,8 @@ In addition to the backend, any frontend was considered as a bonus.
 
 EpyTodo offers the following features :  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x2611;&nbsp;&nbsp; User registration :  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sub>Users can create an account by providing their email, password, name, and firstname.</sub>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sub>Users can create an account by providing their email, password, name, and firstname.</sub>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x2611;&nbsp;&nbsp; User authentication :  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sub>Users can log in to their account using their registered email and password.</sub>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x2611;&nbsp;&nbsp; Todo management :  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sub>Users can create, view, update, and delete todos. Each todo includes a title, description, due time, status, and is assigned to a specific user</sub>  
