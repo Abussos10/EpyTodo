@@ -9,4 +9,4 @@ In addition to the backend, any frontend was considered as a bonus.
 
 EpyTodo offers the following features :  
 &nbsp;&nbsp;&#x2611;&nbsp;&nbsp; User registration :  
-<span style="font-size: 2px;">Users can create an account by providing their email, password, name, and firstname.</span>
+<sub>Users can create an account by providing their email, password, name, and firstname.</sub>
