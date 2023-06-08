@@ -58,10 +58,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `name`, `firstname`, `created_at`) VALUES
 (8, 'updated_email@test.eu', 'new_pass', 'test', 'test', '2023-05-20 06:33:11'),
-(9, 'test@test.fr', '$2a$08$Dqf8tI8uhVNoJj5mM6PAd.gwB9sakOCvskRhgQSY4b2RNNQGIkYgq', '[testName]', '[firstName]', '2023-05-20 09:07:16'),
-(10, 'guillaume.michel@outlook.fr', '$2a$08$fn35zBr3ScJIG1AqIxpGHO7SSrL8Uzie/YgZDVqe.ql1/qb27IvLe', 'test1', 'test3', '2023-05-20 16:46:04'),
-(11, 'lucien.ballon@outlook.fr', '$2a$08$qhH7cV92ZS3Cqs3Uj0IsJ.mjJkyhl5HIxd3KiK6HErlqX2e4IbxS2', 'test1', 'test3', '2023-05-20 16:51:18'),
-(12, 'lucien.balland@outlook.fr', '$2a$08$C28ATQcyqcKgefvbDD68uOeVJdbGITkl76tAehnCEPjQVr.vfM/G2', 'lucien', 'balland', '2023-05-21 03:02:08');
+(9, 'test@test.fr', '$2a$08$Dqf8tI8uhVNoJj5mM6PAd.gwB9sakOCvskRhgQSY4b2RNNQGIkYgq', '[testName]', '[firstName]', '2023-05-20 09:07:16');
 
 --
 -- Indexes for dumped tables
