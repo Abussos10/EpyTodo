@@ -111,4 +111,4 @@ I highly recommend using Postman, a popular API development tool, to test the pr
 
 Official documentation : https://www.postman.com/downloads/
 
-Working on EpyTodo has been an engaging experience, sparking further curiosity and encouraging a deeper exploration of web develop  ment concepts. It has provided a solid foundation for understanding the interaction between the frontend and backend components of a web application.
+Working on EpyTodo has been an engaging experience, sparking further curiosity and encouraging a deeper exploration of web development concepts. It has provided a solid foundation for understanding the interaction between the frontend and backend components of a web application.
